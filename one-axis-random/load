@@ -1,0 +1,5 @@
+#!/bin/sh
+cd $HOME/maketest
+make one-axis-random/one-axis-random.hex
+$HOME/kerfburn/front/thruport/thruport suspend \
+    avrdude -qq -patmega2560 -D -Uflash:w:one-axis-random/one-axis-random.hex
