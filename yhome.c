@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+#include <avr/interrupt.h>
+
 #include "ATX_power.h"
 #include "limit-switches.h"
 #include "serial.h"
@@ -87,6 +89,7 @@ int main()
     init_motors();
     init_serial();
     init_stdio();
+    sei();
 
     enable_ATX_power();
     delay_milliseconds(100);

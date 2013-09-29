@@ -1,5 +1,7 @@
 // #include <stdlib.h>
 
+#include <avr/interrupt.h>
+
 #include "ATX_power.h"
 #include "LED-util.h"
 #include "SPI.h"
@@ -19,6 +21,8 @@ int main()
     init_serial();
     init_SPI();
     init_ATX_power();
+    sei();
+
     enable_ATX_power();
     repeat_LEDs_off();
     init_stdio();

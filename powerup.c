@@ -1,3 +1,4 @@
+#include <avr/interrupt.h>
 #include <avr/io.h>
 
 #include "ATX_power.h"
@@ -13,6 +14,8 @@ int main()
 {
     init_ATX_power();
     init_serial();
+    sei();
+
     while (1) {
         uint16_t ce = serial_read_byte();
         uint8_t e = ce >> 8;

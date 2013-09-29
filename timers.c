@@ -149,7 +149,7 @@ void start_timers(void)
     // printf("%s:%u\n", __func__, __LINE__);
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         running = 1 << 1;
-        n1 = 0;
+        n1 = 100;
         ICR1 = 16000;           /* 16000 / 16000000 Hz = 1 msec  */
 
         // In the asm instruction sequence below, the counters are

@@ -165,6 +165,7 @@ int main()
     init_stdio();
     init_timer();
     setup();
+    sei();
     while (1)
         loop();
 }

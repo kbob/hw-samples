@@ -24,8 +24,8 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
         timers_cfiles := timers.c stdio_util.c serial.c
  visible-laser_cfiles := visible-laser.c timer.c
          xhome_cfiles := xhome.c motor-util.c timer.c
-         xintr_cfiles := xintr.c motor-util.c motors.c serial.c serial_util.c \
-                         stdio_util.c timer.c
+         xintr_cfiles := xintr.c LED-util.c motor-util.c motors.c serial.c \
+                         serial_util.c stdio_util.c timer.c
         xmotor_cfiles := xmotor.c timer.c
         xyhome_cfiles := xyhome.c motor-util.c serial.c serial_util.c \
                          stdio_util.c timer.c

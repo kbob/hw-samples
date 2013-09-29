@@ -1,5 +1,7 @@
 #include "motors.h"
 
+#include <avr/interrupt.h>
+
 #include "ATX_power.h"
 #include "timer.h"
 
@@ -18,6 +20,7 @@ int main()
     init_ATX_power();
     init_timer();
     init_motors();
+    sei();
 
     enable_ATX_power();
     enable_y_motor();

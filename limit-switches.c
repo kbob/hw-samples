@@ -1,5 +1,6 @@
 #include "limit-switches.h"
 
+#include <avr/interrupt.h>
 #include <avr/io.h>
 
 #include "serial.h"
@@ -19,6 +20,8 @@ int main()
     init_limit_switches();
     init_timer();
     init_serial();
+    sei();
+
     print_time = millisecond_time() + 2000;
     while (1) {
         bool do_print = false;

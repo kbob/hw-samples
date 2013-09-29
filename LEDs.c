@@ -4,7 +4,9 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+
 #include "ATX_power.h"
 #include "timer.h"
 
@@ -31,6 +33,8 @@ int main()
     init_timer();
     init_SPI();
     init_ATX_power();
+    sei();
+
     enable_ATX_power();
     delay_milliseconds(100);
 

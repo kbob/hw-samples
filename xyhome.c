@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+#include <avr/interrupt.h>
+
 #include "ATX_power.h"
 #include "SPI.h"
 #include "limit-switches.h"
@@ -69,6 +71,7 @@ int main()
     //init_serial();
     //init_stdio();
     init_SPI();
+    sei();
 
     enable_ATX_power();
     repeat_LEDs_off(LEDS_OFF_MS);

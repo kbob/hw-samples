@@ -19,9 +19,6 @@ void init_timer(void)
 
     // Enable Timer/Counter 0 overflow interrupt.
     TIMSK0 |= _BV(TOIE0);
-
-    // Enable interrupts.
-    sei();
 }
 
 ISR(TIMER0_OVF_vect)

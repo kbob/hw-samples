@@ -1,5 +1,6 @@
 /* blink  - blink the LED on pin D13 (aka PB7). */
 
+#include <avr/interrupt.h>
 #include <avr/io.h>
 
 #include "timer.h"
@@ -31,6 +32,8 @@ int main()
 {
     init_timer();
     init_LED_pin();
+    sei();
+
     while (1) {
         set_LED();
         delay_milliseconds(300);

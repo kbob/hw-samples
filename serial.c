@@ -95,8 +95,6 @@ void init_serial(void)
 
     // Enable RX, TX, and RX complete interrupt.
     UCSR0B = _BV(RXEN0) | _BV(TXEN0) | _BV(RXCIE0);
-
-    sei();
 }
 
 ISR(USART0_RX_vect)

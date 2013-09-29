@@ -1,5 +1,7 @@
 #include <stdlib.h>
 
+#include <avr/interrupt.h>
+
 #include "ATX_power.h"
 #include "SPI.h"
 #include "serial.h"
@@ -79,11 +81,13 @@ void ramp(uint8_t b0, uint8_t b1, void (*set_LEDs)(uint8_t))
 int main()
 {
     init_timer();
+    init_serial();
     init_SPI();
     init_ATX_power();
+    sei();
+
     enable_ATX_power();
     delay_milliseconds(100);
-    init_serial();
     // init_stdio();
 
     next_update_time = millisecond_time() + FRAME_MS;
