@@ -2,7 +2,9 @@
 #define SPI_included
 
 #include <stdbool.h>
+
 #include <avr/io.h>
+#include <util/atomic.h>
 
 
 // SS   = PB0
@@ -56,6 +58,13 @@ static inline void init_SPI(void)
     
     // Enable interrupt.
     // SPCR |= _BV(SPIE);
+}
+
+static inline void stop_SPI(void)
+{
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        DDRB &= ~(_BV(DDB0) | _BV(DDB1) | _BV(DDB2));
+    }
 }
 
 static inline bool SPI_data_ready(void)
