@@ -56,9 +56,10 @@ void set_LEDs_RGB(uint8_t b)
 void abort()
 {
     disable_ATX_power();
-    while (1)
+    while (true)
         ;
 }
+
 void ramp(uint8_t b0, uint8_t b1, void (*set_LEDs)(uint8_t))
 {
     int df = RAMP_FRAMES;
