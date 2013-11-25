@@ -86,9 +86,54 @@ void inline_write_bench(void)
     PORTB |= _BV(PB5);
 }
 
+uint16_t u16;
+
+void calc_velocity(void)
+{
+#define V0 0
+#define VMAX 300
+#define A0 100
+#define uV0   (V0   * 2000.0 / 25.4)
+#define uVMAX (VMAX * 2000.0 / 25.4)
+#define uA0   (A0   * 2000.0 / 25.4)
+    float v = sqrt(uV0 * uV0 + 2 * uA0 * (u16 + 0.5));
+    // printf("V0 * V0 = %g\n", (double)(V0 * V0));
+    // printf("2 * %g * (%u + 0.5) = %g\n", uA0, s, 2 * uA0 * (s + 0.5));
+    // printf("sqrt(%g) = %g\n",
+    //        V0*V0 + 2 * uA0 * (s + 0.5), sqrt(V0*V0 + 2 * uA0 * (s + 0.5)));
+    if (v > uVMAX)
+        v = uVMAX;
+    float t = (v - uV0) * (1.0 / uA0);
+    // printf("v = %g, t = %g\n", (double)v, (double)t);
+    uint32_t ivl = t * F_CPU - bb;
+    cc = ivl;
+#undef uA0
+#undef uVMAX
+#undef uV0
+#undef A0
+#undef VMAX
+#undef V0
+}
+
 float f;
 float small_f = 2.0;
 float large_f = 123456789.0;
+int16_t result_i16;
+
+void float_mul(void)
+{
+    f = small_f * large_f;
+}
+
+void float_div(void)
+{
+    f = small_f / large_f;
+}
+
+void float_to_int16(void)
+{
+    result_i16 = large_f;
+}
 
 void float_sqrt_small(void)
 {
