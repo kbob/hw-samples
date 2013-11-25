@@ -8,7 +8,7 @@ const uint32_t BAUD_RATE = 9600;
 
 // // //  Ring Buffers  // // //
 
-#define RING_BUF_SIZE 13
+#define RING_BUF_SIZE 130
 
 typedef struct ring_buf {
     uint8_t head;

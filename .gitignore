@@ -1,6 +1,7 @@
 *~
 .*.d
 *.o
+a.out
 LEDs
 LEDs2
 SPI
@@ -18,6 +19,7 @@ one-axis-random/one-axis-random
 powerup
 timers
 visible-laser
+xengine
 xhome
 xintr
 xmotor

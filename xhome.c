@@ -29,10 +29,20 @@ int main()
     enable_x_motor();
     delay_milliseconds(200);
 
+#define CONTINUOUS_HOMING 0
+#if CONTINUOUS_HOMING
     while (1) {
         home_x();
-        delay_milliseconds(1000);
+        delay_milliseconds(4000);
         move_x(MM_to_uSTEPS(MOVE_DISTANCE));
         delay_milliseconds(200);
     }        
+#else
+    home_x();
+    delay_milliseconds(500);
+    disable_x_motor();
+    disable_ATX_power();
+    while (1)
+        continue;
+#endif
 }

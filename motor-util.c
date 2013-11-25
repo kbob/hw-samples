@@ -117,6 +117,7 @@ void home_x(void)
 
     // 1st: move left until limit hit.
     set_x_direction_negative();
+    enable_x_motor();
     while (!c_x_min_reached()) {
         step_x();
         _delay_us(uSEC_per_uSTEP(HOME_SPEED_1));

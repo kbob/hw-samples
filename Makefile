@@ -1,7 +1,7 @@
 	     programs := bart-demo blink echo green-glow heaters hello LEDs \
                          LEDs2 limit-switches microbench null powerup SPI \
-                         timers visible-laser xhome xintr xmotor xyhome yhome \
-                         ymotor
+                         timers visible-laser xengine xhome xintr xmotor \
+                         xyhome yhome ymotor
 		 dirs := one-axis-random
 
      bart-demo_cfiles := bart-demo.c LED-util.c motor-util.c serial.c \
@@ -23,6 +23,9 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
            SPI_cfiles := SPI.c timer.c
         timers_cfiles := timers.c stdio_util.c serial.c
  visible-laser_cfiles := visible-laser.c timer.c
+       xengine_cfiles := xengine.c LED-util.c motor-util.c motors.c serial.c \
+                         serial_util.c stdio_util.c timer.c
+       xengine_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          xhome_cfiles := xhome.c motor-util.c timer.c
          xintr_cfiles := xintr.c LED-util.c motor-util.c motors.c serial.c \
                          serial_util.c stdio_util.c timer.c

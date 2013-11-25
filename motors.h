@@ -123,6 +123,16 @@ static inline void start_x_timer(void)
     TCCRxB = _BV(WGMx3) | _BV(WGMx2) | _BV(CSx0);
 }
 
+static inline void stop_x_timer(void)
+{
+    // TCCRxB &= ~_BV(CSx0);
+    TCCRxB = 0;
+    // TCCRxA &= ~(_BV(COMx1_pulse) | _BV(COMx0_pulse));
+    TCCRxA = 0;
+    TIMSKx = 0;
+    TIFRx = 0;
+}
+
 static inline void enable_x_motor(void)
 {
     PORTx_enable &= ~_BV(PORTxn_enable);
