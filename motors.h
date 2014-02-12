@@ -50,47 +50,53 @@
 
 #define TIMERx_OVF_vect TIMER3_OVF_vect
 
+
 // Y Motor
 //   Enable:    PF2 (enabled  = low)
 //   Direction: PF7 (positive = low)
 //   Step:      PB5
+//   Timer:      TIMER1
+//   Comparator: OC1A
 
-#define OLD_PIN_MAPPING
 
-#ifdef OLD_PIN_MAPPING
+#define DDRy_enable     DDRF
+#define DDyn_enable     DDF2
+#define DDRy_dir        DDRF
+#define DDyn_dir        DDF7
+#define DDRy_step       DDRB
+#define DDyn_step       DDB5
 
-    #define DDRy_enable     DDRF
-    #define DDyn_enable     DDF2
-    #define DDRy_dir        DDRF
-    #define DDyn_dir        DDF7
-    #define DDRy_step       DDRB
-    #define DDyn_step       DDB5
+#define PORTy_enable    PORTF
+#define PORTyn_enable   PORTF2
+#define PORTy_dir       PORTF
+#define PORTyn_dir      PORTF7
+#define PORTy_step      PORTB
+#define PORTyn_step     PORTB5
 
-    #define PORTy_enable    PORTF
-    #define PORTyn_enable   PORTF2
-    #define PORTy_dir       PORTF
-    #define PORTyn_dir      PORTF7
-    #define PORTy_step      PORTB
-    #define PORTyn_step     PORTB5
+#define TCCRyA          TCCR1A
+#define COMyy1_pulse    COM1A1
+#define COMyy0_pulse    COM1A0
+#define WGMy1           WGM11
+#define WGMy0           WGM10
 
-#else
+#define TCCRyB          TCCR1B
+#define CSy2            CS12
+#define CSy1            CS11
+#define CSy0            CS10
+#define WGMy3           WGM13
+#define WGMy2           WGM12
 
-    #define DDRy_enable     DDRK
-    #define DDyn_enable     DDK0
-    #define DDRy_dir        DDRL
-    #define DDyn_dir        DDL1
-    #define DDRy_step       DDRL
-    #define DDyn_step       DDL3
+#define TCNTy           TCNT1
+#define OCRyy_pulse     OCR1A
+#define ICRy            ICR1
 
-    #define PORTy_enable    PORTK
-    #define PORTyn_enable   PORTK0
-    #define PORTy_dir       PORTL
-    #define PORTyn_dir      PORTL1
-    #define PORTy_step      PORTL
-    #define PORTyn_step     PORTL3
+#define TIMSKy          TIMSK1
+#define TOIEy           TOIE1
 
-#endif
+#define TIFRy           TIFR1
+#define TOVy            TOV1
 
+#define TIMERy_OVF_vect TIMER1_OVF_vect
 
 typedef void isr_func(void);
 
@@ -181,6 +187,24 @@ static inline void load_x_interval(uint16_t interval)
 
 //  Y  // //  Y  // //  Y  // //  Y  // //  Y  // //  Y  // //  Y  // //  Y  //
 
+extern void init_y_timer(isr_func *, uint16_t);
+
+static inline void start_y_timer(void)
+{
+    // TCCRyB |= _BV(CSy0);
+    TCCRyB = _BV(WGMy3) | _BV(WGMy2) | _BV(CSy0);
+}
+
+static inline void stop_y_timer(void)
+{
+    // TCCRyB &= ~_BV(CSy0);
+    TCCRyB = 0;
+    // TCCRyA &= ~(_BV(COMy1_pulse) | _BV(COMy0_pulse));
+    TCCRyA = 0;
+    TIMSKy = 0;
+    TIFRy = 0;
+}
+
 static inline void enable_y_motor(void)
 {
     PORTy_enable &= ~_BV(PORTyn_enable);
@@ -209,6 +233,21 @@ static inline void step_y(void)
     _delay_us(1);
     PORTy_step &= ~_BV(PORTyn_step);
     _delay_us(1);
+}
+
+static inline void enable_y_step(void)
+{
+    TCCRyA |= _BV(COMyy1_pulse);
+}
+
+static inline void disable_y_step(void)
+{
+    TCCRyA &= ~_BV(COMyy1_pulse);
+}
+
+static inline void load_y_interval(uint16_t interval)
+{
+    ICRy = interval;
 }
 
 #endif /* !MOTORS_included */

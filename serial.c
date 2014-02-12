@@ -3,7 +3,7 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 
-const uint32_t BAUD_RATE = 9600;
+uint32_t baud_rate = 9600;
 
 
 // // //  Ring Buffers  // // //
@@ -83,9 +83,14 @@ static inline uint16_t rb_dequeue_NONBLOCKING_NONATOMIC(ring_buf *rb)
 
 static volatile uint8_t error_bits;
 
+void set_baud_rate(uint32_t rate)
+{
+    baud_rate = rate;
+}
+
 void init_serial(void)
 {
-    const uint16_t baud_setting = F_CPU / 8 / BAUD_RATE - 1;
+    const uint16_t baud_setting = F_CPU / 8 / baud_rate - 1;
 
     // Enable double speed operation.
     UCSR0A = _BV(U2X0);

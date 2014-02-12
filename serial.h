@@ -13,6 +13,7 @@ typedef enum serial_error_bit {
     SE_PARITY_ERROR = _BV(UPE0),
 } serial_error_bit;
 
+extern void    set_baud_rate(uint32_t rate);
 extern void    init_serial(void);
 extern uint8_t serial_error(void);
 

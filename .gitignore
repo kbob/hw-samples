@@ -4,6 +4,7 @@
 a.out
 LEDs
 LEDs2
+LEDs-off
 SPI
 bart-demo
 blink
@@ -17,6 +18,7 @@ null
 one-axis-random/Makefile
 one-axis-random/one-axis-random
 powerup
+scale
 timers
 visible-laser
 xengine
