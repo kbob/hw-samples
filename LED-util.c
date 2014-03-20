@@ -12,7 +12,7 @@
 #include "timer.h"
 
 #define PIXEL_COUNT      22
-#define LEDS_OFF_MS     200
+#define LEDS_OFF_MS     500
 
 #define M_2PI (2.0 * M_PI)
 
