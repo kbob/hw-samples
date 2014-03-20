@@ -226,7 +226,7 @@ bool slow_step_x(uint32_t ivl)
 }
 
 #define STROKE_DISTANCE 500     // mm
-#define A0              900     // mm/sec/sec
+#define A0             1800     // mm/sec/sec
 #define V0                0     // mm/sec
 #define VMAX            400     // mm/sec
 
