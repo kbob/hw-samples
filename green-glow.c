@@ -1,5 +1,3 @@
-// #include <stdlib.h>
-
 #include <avr/interrupt.h>
 
 #include "ATX_power.h"
