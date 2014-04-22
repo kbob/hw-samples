@@ -19,6 +19,7 @@ one-axis-random/Makefile
 one-axis-random/one-axis-random
 powerup
 scale
+talk
 timers
 visible-laser
 xengine
