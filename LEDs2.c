@@ -11,7 +11,7 @@
 #define FRAME_MS 2
 #define RAMP_FRAMES (2 * 1000 / FRAME_MS)
 //#define MAX_BRIGHTNESS 4
-#define MAX_BRIGHTNESS 0x3f
+#define MAX_BRIGHTNESS 0x7f
 
 const uint8_t dither_matrix[16] = {
     0, 3, 6, 9, 12, 15, 2, 5, 8, 11, 14, 1, 4, 7, 10, 13
