@@ -1,0 +1,3 @@
+#!/bin/sh
+
+make help | sed -e '1,/Individual Programs/d' -e '/^$/,$d' | xargs size | sort -n
