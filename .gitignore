@@ -17,6 +17,7 @@ microbench
 null
 one-axis-random/Makefile
 one-axis-random/one-axis-random
+one-axis-random/one-axis-random.hex
 powerup
 scale
 talk
