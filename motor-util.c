@@ -16,14 +16,30 @@
 
 // c_?_min_reached: conditioned limit switch status
 
+#define CONDITION 0
+
 static bool c_x_min_reached(void)
 {
+#if CONDITION
+    uint8_t c = 0;
+    for (uint8_t i = 0; i < 10; i++)
+        c += x_min_reached();
+    return c >= 5;
+#else
     return x_min_reached();
+#endif
 }
 
 static bool c_y_min_reached(void)
 {
+#if CONDITION
+    uint8_t c = 0;
+    for (uint8_t i = 0; i < 10; i++)
+        c += y_min_reached();
+    return c >= 5;
+#else
     return y_min_reached();
+#endif
 }
 
 void move_x(int32_t usteps)
