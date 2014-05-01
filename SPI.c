@@ -48,7 +48,8 @@ int main()
     SPI_write_byte('\0');
     init_table();
 
-#if 0
+#if 1
+    // 2.5 second sine pulse, then 2.5 seconds dark
     for (int j = 0; ; j++) {
         uint8_t v;
         if (j == 1000)
