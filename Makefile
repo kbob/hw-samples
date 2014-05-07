@@ -1,17 +1,21 @@
-             programs := bart-demo blink echo green-glow heaters hello \
-                         LEDs LEDs2 LEDs-off limit-switches microbench \
-                         null powerup scale SPI talk timers visible-laser \
-                         xengine xhome xintr xmotor xyhome yhome ymotor
+             programs := bart-demo blink echo green-glow heaters hello	\
+			 LEDs LEDs2 LEDs-off limit-switches microbench	\
+			 null powerup scale SPI switches talk timers	\
+			 visible-laser xengine xhome xintr xmotor	\
+			 xyhome yhome ymotor
+
+
 
                  dirs := one-axis-random
 
-     bart-demo_cfiles := bart-demo.c LED-util.c motor-util.c serial.c \
+     bart-demo_cfiles := bart-demo.c LED-util.c motor-util.c serial.c   \
                          stdio_util.c timer.c
      bart-demo_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          blink_cfiles := blink.c timer.c
           echo_cfiles := echo.c serial.c
        heaters_cfiles := heaters.c serial.c
-    green-glow_cfiles := green-glow.c LED-util.c serial.c stdio_util.c timer.c
+    green-glow_cfiles := green-glow.c LED-util.c serial.c stdio_util.c  \
+                         timer.c
     green-glow_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          hello_cfiles := hello.c
 limit-switches_cfiles := limit-switches.c serial.c timer.c
@@ -22,20 +26,21 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
     microbench_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
           null_cfiles := null.c
        powerup_cfiles := powerup.c serial.c
-         scale_cfiles := scale.c LED-util.c motor-util.c motors.c serial.c \
-                         serial_util.c stdio_util.c timer.c
+         scale_cfiles := scale.c LED-util.c motor-util.c motors.c       \
+                         serial.c serial_util.c stdio_util.c timer.c
            SPI_cfiles := SPI.c timer.c
+      switches_cfiles := switches.c stdio_util.c serial.c
         timers_cfiles := timers.c stdio_util.c serial.c
           talk_cfiles := talk.c stdio_util.c serial.c timer.c
  visible-laser_cfiles := visible-laser.c timer.c
-       xengine_cfiles := xengine.c LED-util.c motor-util.c motors.c serial.c \
-                         serial_util.c stdio_util.c timer.c
+       xengine_cfiles := xengine.c LED-util.c motor-util.c motors.c     \
+                         serial.c serial_util.c stdio_util.c timer.c
        xengine_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          xhome_cfiles := xhome.c motor-util.c timer.c
-         xintr_cfiles := xintr.c LED-util.c motor-util.c motors.c serial.c \
-                         serial_util.c stdio_util.c timer.c
+         xintr_cfiles := xintr.c LED-util.c motor-util.c motors.c       \
+                         serial.c serial_util.c stdio_util.c timer.c
         xmotor_cfiles := xmotor.c timer.c
-        xyhome_cfiles := xyhome.c motor-util.c serial.c serial_util.c \
+        xyhome_cfiles := xyhome.c motor-util.c serial.c serial_util.c   \
                          stdio_util.c timer.c
         xyhome_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          yhome_cfiles := yhome.c serial.c serial_util.c stdio_util.c timer.c
@@ -50,7 +55,7 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
                AVRDUDE = ~/kerfburn/front/thruport/thruport suspend avrdude
 
              CPPFLAGS += -mmcu=$(MCU) -DF_CPU=16000000L
-               CFLAGS += -g -Os -Wall -Werror $(CPPFLAGS) \
+               CFLAGS += -g -Os -Wall -Werror $(CPPFLAGS)                \
                          -ffunction-sections -fdata-sections -std=c99
              CXXFLAGS += $(patsubst $(CFLAGS),-std=c99,) -fno-exceptions
               libtype := static
