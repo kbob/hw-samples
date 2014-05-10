@@ -8,22 +8,32 @@
 
 #include <avr/io.h>
 
-#define EMERGENCY_STOP_DDR_reg  DDRK
-#define EMERGENCY_STOP_DD_bit   DDK3
-#define EMERGENCY_STOP_PIN_reg  PINK
-#define EMERGENCY_STOP_PIN_bit  PINK3
-#define EMERGENCY_STOP_PORT_reg PORTK
-#define EMERGENCY_STOP_PORT_bit PORTK3
-#define EMERGENCY_STOP_STOPPED  1
+#define EMERGENCY_STOP_DDR_reg   DDRK
+#define EMERGENCY_STOP_DD_bit    DDK3
+#define EMERGENCY_STOP_PIN_reg   PINK
+#define EMERGENCY_STOP_PIN_bit   PINK3
+#define EMERGENCY_STOP_PORT_reg  PORTK
+#define EMERGENCY_STOP_PORT_bit  PORTK3
 
-#define LID_DDR_reg             DDRK
-#define LID_DD_bit              DDK4
-#define LID_PIN_reg             PINK
-#define LID_PIN_bit             PINK4
-#define LID_PORT_reg            PORTK
-#define LID_PORT_bit            PORTK4
-#define LID_OPEN                1
-#define LID_CLOSED            (!LID_OPEN)
+#define EMERGENCY_STOP_PCIE_bit  PCIE2
+#define EMERGENCY_STOP_PCMSK_reg PCMSK2
+#define EMERGENCY_STOP_PCINT_bit PCINT19
+
+#define EMERGENCY_STOP_STOPPED   1
+
+#define LID_DDR_reg              DDRK
+#define LID_DD_bit               DDK4
+#define LID_PIN_reg              PINK
+#define LID_PIN_bit              PINK4
+#define LID_PORT_reg             PORTK
+#define LID_PORT_bit             PORTK4
+
+#define LID_PCIE_bit             PCIE2
+#define LID_PCMSK_reg            PCMSK2
+#define LID_PCINT_bit            PCINT20
+
+#define LID_OPEN                 1
+#define LID_CLOSED             (!LID_OPEN)
 
 static inline void init_safety_switches(void)
 {
