@@ -9,16 +9,14 @@
 #include "serial.h"
 #include "stdio_util.h"
 
-typedef struct switch_state {
-    union {
-        struct {
-            bool xmin;
-            bool ymin;
-            bool stop;
-            bool lid;
-        };
-        uint32_t w;
+typedef union switch_state {
+    struct {
+        bool xmin;
+        bool ymin;
+        bool stop;
+        bool lid;
     };
+    uint32_t w;
 } switch_state;
 
 static switch_state read_switches(void)
