@@ -68,8 +68,8 @@ int main()
     init_limit_switches();
     init_timer();
     init_motors();
-    //init_serial();
-    //init_stdio();
+    init_serial();
+    init_stdio();
     init_SPI();
     sei();
 

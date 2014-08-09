@@ -8,8 +8,11 @@
 
 #include "serial.h"
 #include "stdio_util.h"
+#include "timer.h"
 
 // print interrupt count, switches up/down.
+
+#define DEBOUNCE_MSEC 10
 
 typedef union state {
     struct {
@@ -20,6 +23,7 @@ typedef union state {
     uint32_t w;
 } state;
 
+static uint16_t timer;
 static state curr_state;
 
 static void init_intr(void)
@@ -27,9 +31,7 @@ static void init_intr(void)
     PCICR                    |= _BV(EMERGENCY_STOP_PCIE_bit);
     PCICR                    |= _BV(LID_PCIE_bit);
     EMERGENCY_STOP_PCMSK_reg |= _BV(EMERGENCY_STOP_PCINT_bit);
-    LID_OPEN_PCMSK_reg       |= _BV(LID_PCINT_bit);
-    // PCMSK2 |= _BV(PCINT19);
-    // PCMSK2 |= _BV(PCINT20);
+    LID_PCMSK_reg            |= _BV(LID_PCINT_bit);
 }
 
 static state get_state(void)
@@ -45,6 +47,7 @@ int main()
 {
     init_serial();
     init_stdio();
+    init_timer();
     init_safety_switches();
     init_intr();
     sei();
@@ -59,6 +62,12 @@ int main()
 
     state prev = { .is_open = 2 };
     while (true) {
+        if (timer) {
+            delay_milliseconds(timer);
+            timer = 0;
+            EMERGENCY_STOP_PCMSK_reg |= _BV(EMERGENCY_STOP_PCINT_bit);
+            LID_PCMSK_reg            |= _BV(LID_PCINT_bit);
+        }
         state curr = get_state();
         if (curr.w != prev.w) {
             const char *e = curr.is_stopped ? "stop" : "    ";
@@ -75,4 +84,7 @@ ISR(PCINT2_vect)
     curr_state.intr_count++;
     curr_state.is_stopped = e_is_stopped();
     curr_state.is_open = lid_is_open();
+    timer = DEBOUNCE_MSEC;
+    EMERGENCY_STOP_PCMSK_reg &= ~_BV(EMERGENCY_STOP_PCINT_bit);
+    LID_PCMSK_reg            &= ~_BV(LID_PCINT_bit);
 }

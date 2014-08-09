@@ -45,7 +45,6 @@ int main()
             if (!ph_counter) {
                 printf("\nX-MIN Y-MIN STOP  LID\n");
                 ph_counter = 10;
-                prev.w = 0xFFFFFFFF;
             }
             const char *x = curr.xmin ? "lim " : "    ";
             const char *y = curr.ymin ? "lim " : "    ";
