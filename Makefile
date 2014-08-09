@@ -1,9 +1,9 @@
-             programs := bart-demo blink echo green-glow heaters hello	\
-			 LEDs LEDs2 LEDs-off limit-switches		\
-			 microbench null powerup scale SPI		\
-			 switch-intr switches talk timers		\
-			 visible-laser xengine xhome xintr xmotor	\
-			 xyhome yhome ymotor
+             programs := bart-demo blink echo green-glow heaters hello  \
+                         LEDs LEDs2 LEDs-off limit-switches             \
+                         main-laser microbench null powerup scale       \
+                         red-alert SPI switch-intr switches talk        \
+                         timers visible-laser xengine xhome xintr       \
+                         xmotor xyhome yhome ymotor
 
                  dirs := one-axis-random
 
@@ -22,14 +22,16 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
           LEDs_cfiles := LEDs.c timer.c
          LEDs2_cfiles := LEDs2.c serial.c stdio_util.c timer.c
       LEDs-off_cfiles := LEDs-off.c LED-util.c timer.c
+    main-laser_cfiles := main-laser.c serial.c stdio_util.c timer.c
     microbench_cfiles := microbench.c serial.c stdio_util.c usec-timer.c
     microbench_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
           null_cfiles := null.c
        powerup_cfiles := powerup.c serial.c
+     red-alert_cfiles := red-alert.c stdio_util.c serial.c timer.c
          scale_cfiles := scale.c LED-util.c motor-util.c motors.c       \
                          serial.c serial_util.c stdio_util.c timer.c
            SPI_cfiles := SPI.c timer.c
-   switch-intr_cfiles := switch-intr.c stdio_util.c serial.c
+   switch-intr_cfiles := switch-intr.c stdio_util.c serial.c timer.c
       switches_cfiles := switches.c stdio_util.c serial.c
         timers_cfiles := timers.c stdio_util.c serial.c
           talk_cfiles := talk.c stdio_util.c serial.c timer.c

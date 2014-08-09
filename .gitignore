@@ -13,6 +13,7 @@ green-glow
 heaters
 hello
 limit-switches
+main-laser
 microbench
 null
 one-axis-random/Makefile
@@ -22,6 +23,7 @@ powerup
 scale
 switch-intr
 switches
+red-alert
 talk
 timers
 visible-laser
