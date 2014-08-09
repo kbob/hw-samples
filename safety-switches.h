@@ -19,7 +19,7 @@
 #define EMERGENCY_STOP_PCMSK_reg PCMSK2
 #define EMERGENCY_STOP_PCINT_bit PCINT19
 
-#define EMERGENCY_STOP_STOPPED   1
+#define EMERGENCY_STOP_STOPPED   0
 
 #define LID_DDR_reg              DDRK
 #define LID_DD_bit               DDK4
