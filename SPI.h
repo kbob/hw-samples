@@ -12,6 +12,8 @@
 // MOSI = PB2
 // MISO = PB3
 
+// Pixel byte order is G, R, B.
+
 #define SPI_DIVIDER 2
 
 static inline void init_SPI(void)
