@@ -19,6 +19,7 @@ null
 one-axis-random/Makefile
 one-axis-random/one-axis-random
 one-axis-random/one-axis-random.hex
+power-step
 powerup
 scale
 switch-intr

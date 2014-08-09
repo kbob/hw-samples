@@ -1,9 +1,9 @@
              programs := bart-demo blink echo green-glow heaters hello  \
                          LEDs LEDs2 LEDs-off limit-switches             \
-                         main-laser microbench null powerup scale       \
-                         red-alert SPI switch-intr switches talk        \
-                         timers visible-laser xengine xhome xintr       \
-                         xmotor xyhome yhome ymotor
+                         main-laser microbench null power-step          \
+                         powerup scale red-alert SPI switch-intr        \
+                         switches talk timers visible-laser xengine     \
+                         xhome xintr xmotor xyhome yhome ymotor
 
                  dirs := one-axis-random
 
@@ -26,6 +26,7 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
     microbench_cfiles := microbench.c serial.c stdio_util.c usec-timer.c
     microbench_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
           null_cfiles := null.c
+    power-step_cfiles := power-step.c laser-power.c timer.c laser-power.c i2c.c
        powerup_cfiles := powerup.c serial.c
      red-alert_cfiles := red-alert.c stdio_util.c serial.c timer.c
          scale_cfiles := scale.c LED-util.c motor-util.c motors.c       \
