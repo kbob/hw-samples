@@ -1,9 +1,10 @@
-             programs := bart-demo blink echo green-glow heaters hello  \
-                         LEDs LEDs2 LEDs-off limit-switches             \
-                         main-laser microbench null power-step          \
-                         powerup scale red-alert SPI switch-intr        \
-                         switches talk timers visible-laser xengine     \
-                         xhome xintr xmotor xyhome yhome ymotor
+             programs := bart-demo blink both-lasers echo green-glow    \
+                         heaters hello LEDs LEDs2 LEDs-off              \
+                         limit-switches main-laser microbench null      \
+                         power-step powerup scale red-alert SPI         \
+                         switch-intr switches talk timers               \
+                         visible-laser xengine xhome xintr xmotor       \
+                         xyhome yhome ymotor
 
                  dirs := one-axis-random
 
@@ -12,6 +13,8 @@
                          stdio_util.c timer.c
      bart-demo_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
          blink_cfiles := blink.c timer.c
+   both-lasers_cfiles := both-lasers.c laser-power.c i2c.c serial.c     \
+                         stdio_util.c timer.c
           echo_cfiles := echo.c serial.c
        heaters_cfiles := heaters.c serial.c
     green-glow_cfiles := green-glow.c LED-util.c serial.c stdio_util.c  \
@@ -22,7 +25,8 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
           LEDs_cfiles := LEDs.c timer.c
          LEDs2_cfiles := LEDs2.c serial.c stdio_util.c timer.c
       LEDs-off_cfiles := LEDs-off.c LED-util.c timer.c
-    main-laser_cfiles := main-laser.c serial.c stdio_util.c timer.c
+    main-laser_cfiles := main-laser.c laser-power.c i2c.c serial.c      \
+                         stdio_util.c timer.c
     microbench_cfiles := microbench.c serial.c stdio_util.c usec-timer.c
     microbench_ldlibs := -Wl,-u,vfprintf -lprintf_flt -lm
           null_cfiles := null.c
