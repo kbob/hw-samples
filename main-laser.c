@@ -4,6 +4,10 @@
 
 #include <stdio.h>
 
+#include "ATX_power.h"
+#include "heaters.h"
+#include "i2c.h"
+#include "laser-power.h"
 #include "safety-switches.h"
 #include "serial.h"
 #include "stdio_util.h"
@@ -14,11 +18,28 @@
 int main()
 {
     init_timer();
+    init_ATX_power();
     init_serial();
     init_stdio();
     init_safety_switches();
+    init_i2c();
+    init_laser_power();
+    init_heaters();
+    init_main_laser();
     sei();
 
+    enable_ATX_power();
+    uint32_t b = millisecond_time();
+    while (!ATX_power_state()) {
+        enable_ATX_power();
+        continue;
+    }
+    uint32_t a = millisecond_time();
+    printf("ATX power: %ld msec\n", a - b);
+    enable_heater_1();          // aka water pump
+    delay_milliseconds(2000);
+    enable_heater_0();          // aka high voltage supply
+    set_laser_power(4095 / 3);  // 1/3rd power
     printf("Main Laser!  Danger!\n");
 
     while (true) {
