@@ -8,7 +8,7 @@
 #include "SPI.h"
 #include "timer.h"
 
-#define ROTATION_SECONDS 36
+#define ROTATION_SECONDS 3600
 #define PIXEL_COUNT 22
 
 static void wait_for_it(uint32_t ms)
@@ -81,52 +81,36 @@ int main()
     uint32_t d = ROTATION_SECONDS * 1000L / (6 * 127);
     wait_for_it(d);
     
+#if 0
     while (true) {
         for (uint8_t i = 0; i < 6; i++) {
             for (uint8_t j = 0; j < 127; j++) {
                 wait_for_it(0);
                 uint8_t r, g, b;
                 calc_color(i, j, &r, &g, &b);
-                // switch (i) {
-
-                // case 0:         // red -> yellow
-                //     r = 127;
-                //     g = j;
-                //     b = 0;
-                //     break;
-
-                // case 1:         // yellow -> green
-                //     r = 127 - j;
-                //     g = 127;
-                //     b = 0;
-                //     break;
-
-                // case 2:         // green -> cyan
-                //     r = 0;
-                //     g = 127;
-                //     b = j;
-                //     break;
-
-                // case 3:         // cyan -> blue
-                //     r = 0;
-                //     g = 127 - j;
-                //     b = 127;
-                //     break;
-
-                // case 4:         // blue -> magenta
-                //     r = j;
-                //     g = 0;
-                //     b = 127;
-                //     break;
-
-                // case 5:         // magenta -> red
-                //     r = 127;
-                //     g = 0;
-                //     b = 127 - j;
-                //     break;
-                // }
                 set_LEDs_color(r, g, b);
             }
         }
     }
+#else
+    while (true) {
+        for (uint8_t i = 0; i < 6; i++) {
+            for (uint8_t j = 0; j < 127; j++) {
+                wait_for_it(0);
+                begin_LEDs_refresh();
+                for (uint8_t p = 0; p < PIXEL_COUNT; p++) {
+                    uint8_t r=0, g=0, b=0;
+                    uint8_t ii = i, jj = j + 4 * p;
+                    if (jj >= 127) {
+                        jj -= 127;
+                        if (++ii == 6) ii = 0;
+                    }
+                    calc_color(ii, jj, &r, &g, &b);
+                    set_pixel_color(r, g, b);
+                }                
+                end_LEDs_refresh();
+            }
+        }
+    }
+#endif
 }
