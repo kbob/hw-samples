@@ -34,7 +34,7 @@ limit-switches_cfiles := limit-switches.c serial.c timer.c
           null_cfiles := null.c
     power-step_cfiles := power-step.c laser-power.c timer.c laser-power.c i2c.c
        powerup_cfiles := powerup.c serial.c
-     red-alert_cfiles := red-alert.c stdio_util.c serial.c timer.c
+     red-alert_cfiles := red-alert.c LED-util.c stdio_util.c serial.c timer.c
          scale_cfiles := scale.c LED-util.c motor-util.c motors.c       \
                          serial.c serial_util.c stdio_util.c timer.c
            SPI_cfiles := SPI.c timer.c

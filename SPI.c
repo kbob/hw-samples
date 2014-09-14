@@ -64,6 +64,7 @@ int main()
         delay_milliseconds(5);
     }
 #else
+    // shimmering
     uint32_t t = millisecond_time() + 10;
     for (int j = 0; ; j++) {
         uint8_t v;

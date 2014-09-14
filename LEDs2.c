@@ -89,7 +89,6 @@ int main()
 
     enable_ATX_power();
     delay_milliseconds(100);
-    // init_stdio();
 
     next_update_time = millisecond_time() + FRAME_MS;
     SPI_write_byte(0x00);

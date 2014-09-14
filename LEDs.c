@@ -42,7 +42,6 @@ int main()
     while (true) {
         for (int i = 0; i < FRAME_COUNT; i++) {
             for (uint8_t j = 0; j < ROW_LEN; j++) {
-                // SPI_write_byte(pixels[i][j]);
                 uint16_t p = (uint16_t)pixels_PGM;
                 p += i * ROW_LEN;
                 p += j;

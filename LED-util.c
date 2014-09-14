@@ -26,13 +26,39 @@ static void delay(uint8_t frame_ms)
     next_update_time += frame_ms;
 }
 
-static void set_LEDs(uint8_t level)
+void begin_LEDs_refresh()
 {
     SPI_write_byte(0x00);
-    for (uint8_t i = 0; i < 3 * PIXEL_COUNT; i++)
-        SPI_write_byte(level | 0x80);
+}
+
+void set_pixel_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+    SPI_write_byte(green | 0x80);
+    SPI_write_byte(red | 0x80);
+    SPI_write_byte(blue | 0x80);
+}
+
+void set_pixel_level(uint8_t level)
+{
+    set_pixel_color(level, level, level);
+}
+
+void end_LEDs_refresh()
+{
     SPI_write_byte(0x00);
-    illum_level = level;
+}
+
+void set_LEDs_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+    begin_LEDs_refresh();
+    for (uint8_t i = 0; i < PIXEL_COUNT; i++)
+        set_pixel_color(red, green, blue);
+    end_LEDs_refresh();
+}
+
+void set_LEDs_level(uint8_t level)
+{
+    set_LEDs_color(level, level, level);
 }
 
 void repeat_LEDs_off(void)
@@ -40,7 +66,7 @@ void repeat_LEDs_off(void)
     uint32_t done = millisecond_time() + LEDS_OFF_MS;
     uint32_t n = 0;
     while (millisecond_time() < done) {
-        set_LEDs(0);
+        set_LEDs_level(0);
         n++;
     }
 }
@@ -56,9 +82,9 @@ void ramp_LEDs(uint8_t initial, uint8_t final, uint16_t ms)
         inc = -1;
     }
 
-    uint16_t t = ms / (max - min);
+    uint16_t t = ms / (max - min + 1);
     for (uint8_t i = initial; i != final; i += inc) {
-        set_LEDs(i);
+        set_LEDs_level(i);
         _delay_ms(t);
     }
 }
@@ -78,6 +104,7 @@ void soothing_green_glow(void)
     for (uint16_t n = 0; ; n = (n + GG_FRAME_MS) % GG_BREATHE_MS) {
         double theta = (M_2PI / GG_BREATHE_MS) * n;
         assert(0.0 <= theta && theta <= M_2PI);
+        begin_LEDs_refresh();
         for (uint8_t i = 0; i < PIXEL_COUNT; i++) {
             double phi = fabs(i * (M_2PI / (PIXEL_COUNT - 1)) - M_PI);
             double  a = sin(theta - phi);
@@ -99,11 +126,9 @@ void soothing_green_glow(void)
                 g  =  (g * m + illum_level * mm) >> 8;
                 rb = (rb * m + illum_level * mm) >> 8;
             }
-            SPI_write_byte(g | 0x80);
-            SPI_write_byte(rb | 0x80);
-            SPI_write_byte(rb | 0x80);
+            set_pixel_color(rb, g, rb);
         }            
-        SPI_write_byte(0x00);
+        end_LEDs_refresh();
         if (ramping) {
             r += GG_FRAME_MS;
             if (r >= GG_RAMP_MS)

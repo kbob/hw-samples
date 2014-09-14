@@ -13,31 +13,6 @@
 #define IDLE_MS 800
 #define STRIPE_WIDTH 4
 
-static void begin_LED_refresh()
-{
-    SPI_write_byte(0x00);
-}
-
-static void set_LED(uint8_t red, uint8_t green, uint8_t blue)
-{
-        SPI_write_byte(green | 0x80);
-        SPI_write_byte(red | 0x80);
-        SPI_write_byte(blue | 0x80);
-}
-
-static void end_LED_refresh()
-{
-    SPI_write_byte(0x00);
-}
-
-static void set_LEDs(uint8_t red, uint8_t green, uint8_t blue)
-{
-    begin_LED_refresh();
-    for (uint8_t i = 0; i < 3 * PIXEL_COUNT; i++)
-        set_LED(red, green, blue);
-    end_LED_refresh();
-}
-
 static void wait_for(uint32_t ms)
 {
     static uint32_t last_time;
@@ -70,7 +45,7 @@ int main()
             uint8_t k = PIXEL_COUNT - j - 1;
             uint8_t j1 = (2 * j + PIXEL_COUNT) / 4;
             uint8_t k1 = (2 * k + PIXEL_COUNT) / 4;
-            begin_LED_refresh();
+            begin_LEDs_refresh();
             for (uint8_t p = 0; p < PIXEL_COUNT; p++) {
                 uint8_t r = 127, g = 127, b = 127;
                 r = g = b = 63;
@@ -79,13 +54,12 @@ int main()
                     g = 63;
                     b = 0;
                 }
-                set_LED(r, g, b);
+                set_pixel_color(r, g, b);
             }
-            end_LED_refresh();
+            end_LEDs_refresh();
             wait_for(refresh_ms);
         }
-        uint8_t j = 63;
-        set_LEDs(j, j, j);
+        set_LEDs_level(63);
         wait_for(IDLE_MS);
     }
 }
