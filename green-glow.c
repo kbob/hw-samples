@@ -7,12 +7,6 @@
 #include "stdio_util.h"
 #include "timer.h"
 
-void abort(void)
-{
-    while (true)
-        continue;
-}
-
 int main()
 {
     init_timer();

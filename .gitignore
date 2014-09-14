@@ -6,9 +6,11 @@ LEDs
 LEDs2
 LEDs-off
 SPI
+amber-caution
 bart-demo
 blink
 both-lasers
+color-wheel
 echo
 green-glow
 heaters
