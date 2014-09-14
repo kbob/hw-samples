@@ -11,8 +11,6 @@
 #include "LED-util.h"
 #include "timer.h"
 
-#define PIXEL_COUNT 22
-#define ROW_LEN (3 * PIXEL_COUNT + 2)
 #define FRAME_MS 1000
 
 int main()

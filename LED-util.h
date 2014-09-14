@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define PIXEL_COUNT 22
+
 // Colors and levels are 0 .. 127.
 
 // Refresh LEDs individually.

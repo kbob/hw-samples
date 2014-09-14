@@ -8,10 +8,8 @@
 #include "SPI.h"
 #include "timer.h"
 
-#define PIXEL_COUNT 22
 #define STRIPE_MS 1000
 #define IDLE_MS 800
-#define STRIPE_WIDTH 4
 
 static void wait_for(uint32_t ms)
 {

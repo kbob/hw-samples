@@ -9,7 +9,6 @@
 #include "SPI.h"
 #include "timer.h"
 
-#define PIXEL_COUNT 22
 #define UPDATE_MS 20
 
 static void update_LEDs(void)

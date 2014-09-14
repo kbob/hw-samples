@@ -9,7 +9,6 @@
 #include "timer.h"
 
 #define ROTATION_SECONDS 3600
-#define PIXEL_COUNT 22
 
 static void wait_for_it(uint32_t ms)
 {
